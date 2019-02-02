@@ -1,0 +1,125 @@
+﻿<UserControl    x:Class="WpfApp1.Views.JournalVoucherView" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:prism="http://prismlibrary.com/"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:local="clr-namespace:WpfApp1"
+             d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type local:JournalVoucherModel}}"
+       mc:Ignorable="d"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+ 
+        <Grid>
+            <dxlc:LayoutControl Orientation="Vertical"  >
+                <dxlc:LayoutGroup>
+                    <dxlc:LayoutItem Label="JV.NO:">
+                        <dxe:TextEdit  EditValue="{Binding Entity.VoucherNo, UpdateSourceTrigger=PropertyChanged, Delay=300}" />                 
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Branch:">
+                        <dxe:ComboBoxEdit EditValue="{Binding Entity.Branch}"  IsTextEditable="True">
+                            <dxe:ComboBoxEdit.Items>
+                                <dxe:ComboBoxEditItem Content="CAD"/>
+
+
+                            </dxe:ComboBoxEdit.Items>
+                        </dxe:ComboBoxEdit>
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutItem Label="Period:">
+                    <dxe:DateEdit EditValue="{Binding Entity.Period, UpdateSourceTrigger=PropertyChanged}" DisplayFormatString="MMM-yy" HorizontalContentAlignment="Center" HorizontalAlignment="Left"
+                                  Width="150" Mask="MMM-yy" MaskUseAsDisplayFormat="True" AllowDefaultButton="False"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem>
+                    <dxg:GridControl Height="300"  ItemsSource="{Binding Entity.JournalVoucherLines}" SelectionMode="Cell" FontSize="16">
+                        <dxg:GridControl.View>
+                            
+                            <dxg:TableView AutoWidth="True" EditFormShowMode="Inline" NewItemRowPosition="Top"
+                                      
+                                             AllowEditing="True"
+                                 AllowPerPixelScrolling="True"
+                            ShowGroupPanel="False"  AllowGrouping="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False" NavigationStyle="Row"/>
+                        </dxg:GridControl.View>
+                        <dxg:GridControl.Resources>
+                            <sys:DateTime x:Key="nullDateTime">0001-1-1</sys:DateTime>
+                        </dxg:GridControl.Resources>
+                    <dxg:GridColumn Header="Date" FieldName="Date" Width="100" FixedWidth="True"
+                                        EditFormColumnSpan="1" EditFormRowSpan="1" EditFormVisibleIndex="0" >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:DateEditSettings Mask="dd-MMM-yyyy" HorizontalContentAlignment="Center" 
+                                                  MaskUseAsDisplayFormat="True" AllowNullInput="True" NullValueButtonPlacement="EditBox"
+                                                  NullValue="{x:Static sys:DateTime.MinValue}"  />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    <dxg:GridColumn Header="Account No" FieldName="AccountNo" Width="100" FixedWidth="True"  EditFormStartNewRow="True" EditFormVisibleIndex="0" >
+                        </dxg:GridColumn>
+                    <dxg:GridColumn Header="Transaction Type" FieldName="TransactionType" Width="200" FixedWidth="True" >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ComboBoxEditSettings ItemsSource="{Binding Transactions}" 
+                                                  DisplayMember="TypeName" ValueMember="TypeName"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Description" FieldName="Description" Width="200" FixedWidth="True"  EditFormStartNewRow="True" EditFormColumnSpan="2" EditFormRowSpan="2"> 
+                        </dxg:GridColumn>
+
+                    <dxg:GridColumn Header="DebitAmount Dr" 
+                                    FieldName="Debit" Width="150" FixedWidth="True" EditFormVisibleIndex="0" EditFormStartNewRow="True">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:SpinEditSettings Mask="N2" MaskUseAsDisplayFormat="True" AllowNullInput="True" NullValueButtonPlacement="EditBox"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="CreditAmount Cr" Width="150" FieldName="Credit" FixedWidth="True" EditFormVisibleIndex="0">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:SpinEditSettings Mask="N2" MaskUseAsDisplayFormat="True" AllowNullInput="True" NullValueButtonPlacement="EditBox"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                </dxg:GridControl>
+                </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Purpose:">
+                <dxe:TextEdit EditValue="{Binding Entity.Purpose, UpdateSourceTrigger=PropertyChanged, Delay=300}"/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Reason:">
+                <dxe:TextEdit EditValue="{Binding Entity.Reason, UpdateSourceTrigger=PropertyChanged, Delay=300}"/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+
+                <dxlc:LayoutItem Label="JournalRef:">
+                        <dxe:TextEdit EditValue="{Binding Entity.JournalRef, UpdateSourceTrigger=PropertyChanged, Delay=300}">
+
+                        </dxe:TextEdit>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="PreparedBy:">
+                        <dxe:ComboBoxEdit  EditValue="{Binding Entity.PreparedBy}"  IsTextEditable="True">
+                            <dxe:ComboBoxEdit.Items>
+                                <dxe:ComboBoxEditItem Content ="JVR"/>
+
+
+                            </dxe:ComboBoxEdit.Items>
+                        </dxe:ComboBoxEdit>
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutGroup>
+               
+                <dxlc:LayoutItem Label="Offline Path" AddColonToLabel="True">
+                    <dxe:ButtonEdit EditValue="{Binding OfflinePath}" AllowDefaultButton="False">
+                        <dxe:ButtonEdit.Buttons>
+                            <dxe:ButtonInfo GlyphKind="Custom"  Command="{Binding BrowseOfflinePathCommand}" Content="...">
+                            </dxe:ButtonInfo>
+                            <dxe:ButtonInfo GlyphKind="Apply" Command="{Binding SaveOfflinePathCommand}"/>
+                        </dxe:ButtonEdit.Buttons>
+                    </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+            <dxlc:LayoutItem >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                    <dx:SimpleButton Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="3" Glyph="{dx:DXImage Image=Save_16x16.png}"/>
+                    <dx:SimpleButton Content="Print" Command="{Binding PrintCommand}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="3" Glyph="{dx:DXImage Image=Print_16x16.png}"/>
+                    <dx:SimpleButton Content="Open" Command="{Binding OpenCommand}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="3" Glyph="{dx:DXImage Image=Open_16x16.png}"/>
+                    <dx:SimpleButton Content="New" Command="{Binding NewCommand}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="3" Glyph="{dx:DXImage Image=New_16x16.png}"/>
+                </StackPanel>
+            </dxlc:LayoutItem>
+        </dxlc:LayoutControl>
+        </Grid>
+</UserControl>
