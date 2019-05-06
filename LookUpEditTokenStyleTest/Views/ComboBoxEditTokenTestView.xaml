@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="LookUpEditTokenStyleTest.Views.ComboBoxEditTokenTestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:views="clr-namespace:LookUpEditTokenStyleTest.Views"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Resources>
+        <views:DivisionConverter x:Key="DivisionConverter"/>
+    </UserControl.Resources>
+    <Grid>
+         <dxlc:LayoutControl >
+            <dxlc:LayoutGroup Orientation="Vertical">
+                <dxlc:LayoutItem Label="LayoutItem">
+                    <dxg:LookUpEdit VerticalAlignment="Top" ItemsSource="{Binding Divisions}" DisplayMember="Name" 
+                                    
+                        AutoPopulateColumns="False"
+                        EditValue="{Binding SelectedDivisions, Converter={StaticResource DivisionConverter}}"
+                        ImmediatePopup="True">
+                        <dxg:LookUpEdit.StyleSettings>
+                            <dxg:TokenLookUpEditStyleSettings NewTokenPosition="None"/>
+                        </dxg:LookUpEdit.StyleSettings>
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <dxg:GridControl x:Name="PART_GridControl">
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView AutoWidth="True"/>
+                                    </dxg:GridControl.View>
+                                    <dxg:GridColumn FieldName="Name"/>
+                                </dxg:GridControl>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="EditValueChanging" Command="{Binding RemoveDivisionCommand}" PassEventArgsToCommand="True">
+                              
+                            </dxmvvm:EventToCommand>
+                        </dxmvvm:Interaction.Behaviors>
+                    </dxg:LookUpEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Selected Divisions">
+                    <dxe:ListBoxEdit ItemsSource="{Binding SelectedDivisions}" Height="150" DisplayMember="Name"/>
+                </dxlc:LayoutItem>
+              
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>     
+    </Grid>
+</UserControl>

@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{7B1E6F82-7378-41AA-8734-F90187C1C1EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LookUpEditTokenStyleTest", "LookUpEditTokenStyleTest\LookUpEditTokenStyleTest.csproj", "{3D220207-AD3E-48F6-B284-122C41E20311}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobCardsTestProject", "JobCardsTestProject\JobCardsTestProject.csproj", "{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		All|Any CPU = All|Any CPU
@@ -21,6 +25,22 @@ Global
 		{7B1E6F82-7378-41AA-8734-F90187C1C1EA}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
 		{7B1E6F82-7378-41AA-8734-F90187C1C1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B1E6F82-7378-41AA-8734-F90187C1C1EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D220207-AD3E-48F6-B284-122C41E20311}.All|Any CPU.ActiveCfg = Release|Any CPU
+		{3D220207-AD3E-48F6-B284-122C41E20311}.All|Any CPU.Build.0 = Release|Any CPU
+		{3D220207-AD3E-48F6-B284-122C41E20311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D220207-AD3E-48F6-B284-122C41E20311}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D220207-AD3E-48F6-B284-122C41E20311}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D220207-AD3E-48F6-B284-122C41E20311}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
+		{3D220207-AD3E-48F6-B284-122C41E20311}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D220207-AD3E-48F6-B284-122C41E20311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}.All|Any CPU.ActiveCfg = Release|Any CPU
+		{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}.All|Any CPU.Build.0 = Release|Any CPU
+		{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
+		{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67AF9B24-2D86-45C9-9F7B-4B36E26B7600}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

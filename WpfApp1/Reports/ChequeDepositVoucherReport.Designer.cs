@@ -30,7 +30,6 @@ namespace Jasmine.Modules.CreditControl.Reports.Print
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.xrLabel35 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel26 = new DevExpress.XtraReports.UI.XRLabel();
@@ -60,13 +59,12 @@ namespace Jasmine.Modules.CreditControl.Reports.Print
             this.xrLabel41 = new DevExpress.XtraReports.UI.XRLabel();
             this.DetailReport = new DevExpress.XtraReports.UI.DetailReportBand();
             this.Detail1 = new DevExpress.XtraReports.UI.DetailBand();
-            this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
+            this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource();
             ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // Detail
             // 
-            this.Detail.Expanded = false;
             this.Detail.HeightF = 20.44856F;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
@@ -466,6 +464,7 @@ namespace Jasmine.Modules.CreditControl.Reports.Print
             this.Detail1});
             this.DetailReport.DataMember = "Lines";
             this.DetailReport.DataSource = this.objectDataSource1;
+            this.DetailReport.Expanded = false;
             this.DetailReport.Level = 0;
             this.DetailReport.Name = "DetailReport";
             // 
@@ -483,7 +482,7 @@ namespace Jasmine.Modules.CreditControl.Reports.Print
             // 
             // objectDataSource1
             // 
-            this.objectDataSource1.DataSource = typeof(DepositSlipLineViewModel);
+            this.objectDataSource1.DataSource = typeof(WpfApp1.ViewModels.DepositSlipLineViewModel);
             this.objectDataSource1.Name = "objectDataSource1";
             // 
             // ChequeDepositVoucherReport

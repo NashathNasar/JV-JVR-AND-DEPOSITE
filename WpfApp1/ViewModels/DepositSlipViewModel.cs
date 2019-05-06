@@ -14,6 +14,10 @@ using System.Windows.Input;
 using DevExpress.XtraReports.UI;
 using Jasmine.Modules.CreditControl.Reports.Print;
 using static WpfApp1.ViewModels.DepositSlipLineViewModel;
+using System.Drawing;
+using System.Windows.Media.Imaging;
+using DevExpress.Xpf.LayoutControl;
+
 namespace WpfApp1.ViewModels
 {
     [NotifyPropertyChanged]
