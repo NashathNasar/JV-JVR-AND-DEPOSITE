@@ -1,0 +1,62 @@
+
+
+# Trigger on every master branch push and pull request
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        targetplatform: [ x64]
+
+    runs-on: windows-latest
+
+    env:
+      
+      Solution_Path: WpfApp1.sln
+      
+      Wpf_Project_Path: MyWpfApp1\WpfApp1.csproj
+      Wap_Project_Directory: MyWpfApp1.Package
+      Wap_Project_Name: MyWpfApp1.Package.wapproj
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+
+    # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.0
+
+
+    # Test
+    - name: Execute Unit Tests
+      run: dotnet test $env:Test_Project_Path
+
+    # Restore the application
+    - name:  Restore the Wpf application to populate the obj folder
+      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
+      env:
+        Configuration: Debug
+        RuntimeIdentifier: win-${{ matrix.targetplatform }}
+
+
+   
+ 
+
