@@ -21,7 +21,7 @@ jobs:
 
     env:
       
-      Solution_Path: JV-JVR-AND-DEPOSITE\WpfApp1.sln
+      Solution_Path: WpfApp1.sln
       
       Wpf_Project_Path: MyWpfApp1\WpfApp1.csproj
       Wap_Project_Directory: MyWpfApp1.Package
