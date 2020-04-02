@@ -1,33 +1,91 @@
-# This is a basic workflow to help you get started with Actions
+name: Main workflow
 
-name: .Net Framework
-
-# Controls when the action will run. Triggers the workflow on push or pull request 
-# events but only for the master branch
 on:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+  push:
+    branches:
+      - master
+      - releases/*
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        version: 12.x
+    - run: npm ci
+    - run: npm run build
+    - run: npm run format-check
+    - run: npm test
+    - name: Verify no unstaged changes
+      if: runner.os != 'windows'
+      run: __tests__/verify-no-unstaged-changes.sh
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+  test:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clear tool cache
+        run: mv "${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"
+      - name: Setup dotnet 3.0.100
+        uses: ./
+        with:
+          dotnet-version: 3.0.100
+      - name: Verify dotnet
+        if: runner.os != 'windows'
+        run: __tests__/verify-dotnet.sh 3.0.100
+      - name: Verify dotnet (Windows)
+        if: runner.os == 'windows'
+        run: __tests__/verify-dotnet.ps1 3.0.100
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+  test-proxy:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/dotnet/core/runtime-deps:3.0-bionic
+      options: --dns 127.0.0.1
+    services:
+      squid-proxy:
+        image: datadog/squid:latest
+        ports:
+          - 3128:3128
+    env:
+      https_proxy: http://squid-proxy:3128
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clear tool cache
+        run: rm -rf $RUNNER_TOOL_CACHE/*
+      - name: Setup dotnet 3.0.100
+        uses: ./
+        with:
+          dotnet-version: 3.0.100
+      - name: Verify dotnet
+        run: __tests__/verify-dotnet.sh 3.0.100
+
+  test-bypass-proxy:
+    runs-on: ubuntu-latest
+    env:
+      https_proxy: http://no-such-proxy:3128
+      no_proxy: github.com,dotnetcli.blob.core.windows.net,download.visualstudio.microsoft.com,api.nuget.org
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clear tool cache
+        run: mv "${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"
+      - name: Setup dotnet 3.0.100
+        uses: ./
+        with:
+          dotnet-version: 3.0.100
+      - name: Verify dotnet
+        run: __tests__/verify-dotnet.sh 3.0.100
