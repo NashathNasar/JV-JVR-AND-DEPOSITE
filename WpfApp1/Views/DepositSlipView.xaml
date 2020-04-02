@@ -45,7 +45,7 @@
                 </dxe:ComboBoxEdit>
             </dxlc:LayoutItem>
         </dxlc:LayoutGroup>
-        <dxlc:LayoutItem Label="phone" HorizontalAlignment="Stretch" >
+        <dxlc:LayoutItem Label="Telephone" HorizontalAlignment="Stretch" >
             <dxe:ComboBoxEdit EditValue="{Binding Entity.Telephone}">
                 <dxe:ComboBoxEdit.Items>
                     <dxe:ComboBoxEditItem Content="0504423706"/>
